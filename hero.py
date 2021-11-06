@@ -27,11 +27,11 @@ class Hero:
     # Hint: Look into random library, more specifically the choice method
 
     # Solution 1
-    # heroes = [self, opponent]
-    # if choice(heroes) == self:
-    #     print(f"{self.name} defeats {opponent.name}!")
-    # else:
-    #     print(f"{opponent.name} defeats {self.name}!")
+    heroes = [self, opponent]
+    if random.choice(heroes) == self:
+        print(f"{self.name} defeats {opponent.name}!")
+    else:
+        print(f"{opponent.name} defeats {self.name}!")
 
     # Stretch Challenge Solution
     total = self.current_health + opponent.current_health
