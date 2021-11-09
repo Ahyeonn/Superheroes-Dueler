@@ -15,6 +15,14 @@ class Dog:
     print(f"{self.name} rolls over")
 
 
+# my_dogs = list()
+# my_dogs.append(Dog("D", "x"))
+# my_dogs.append(Dog("C", "X"))
+# my_dogs.append(Dog("A", "Y"))
+
+# for dog in my_dogs:
+#   print(dog.bark())
+
 # # my_dogs.py
 # import dog
 # ...
