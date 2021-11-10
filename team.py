@@ -5,5 +5,39 @@ class Team:
         self.name = name
         self.heroes = list()
 
+    def remove_hero(self, name):
+        '''Remove hero from heroes list.
+        If Hero isn't found return 0.
+        '''
+        foundHero = False
+        # loop through each hero in our list
+        for hero in self.heroes:
+            # if we find them, remove them from the list
+            if hero.name == name:
+                self.heroes.remove(hero)
+                # set our indicator to True
+                foundHero = True
+        # if we looped through our list and did not find our hero,
+        # the indicator would have never changed, so return 0
+        if not foundHero:
+            return 0
 
-team1 = Team("hero team")
+    def view_all_heroes(self):
+        '''Prints out all heroes to the console.'''
+        # TODO: Loop over the list of heroes and print their names to the terminal one by one.
+        for hero in self.heroes:
+            print(hero.name)
+
+    def add_hero(self, hero):
+        '''Add Hero object to self.heroes.'''
+        # TODO: Add the Hero object that is passed in to the list of heroes in
+        # self.heroes
+        self.heroes.append(hero)
+
+# team1 = Team("Hero team")
+# print(team1.heroes)
+# team1.add_hero("hi")
+# team1.add_hero("bye")
+# # team1.remove_hero("hi")
+# print(team1.heroes)
+
