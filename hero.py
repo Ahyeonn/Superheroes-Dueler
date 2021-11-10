@@ -25,18 +25,12 @@ class Hero:
     # when a hero is created, their current health is
     # always the same as their starting health (no damage taken yet!)
     self.current_health = starting_health
+    self.deaths = 0
+    self.kills = 0
   
   def fight(self, opponent):
     ''' Current Hero will take turns fighting the opponent hero passed in.
     '''
-    # TODO: Fight each hero until a victor emerges.
-    # Phases to implement:
-    # 0) check if at least one hero has abilities. If no hero has abilities, print "Draw"
-    # 1) else, start the fighting loop until a hero has won
-    # 2) the hero (self) and their opponent must attack each other and each must take damage from the other's attack
-    # 3) After each attack, check if either the hero (self) or the opponent is alive
-    # 4) if one of them has died, print "HeroName won!" replacing HeroName with the name of the hero, and end the fight loop
-    # if self.abilities or opponent.abilities == True:
     if len(self.abilities) > 0 or len(opponent.abilities) > 0:
       if self.current_health > 0 and opponent.current_health > 0:
         while True:
@@ -49,10 +43,14 @@ class Hero:
             else:
               if opponent.current_health <=0 and opponent.current_health < self.current_health:
                 print(f"{self.name} won!")
+                opponent.add_death(1)
+                self.add_kill(1)
                 break
           else:
             if self.current_health <= 0 and self.current_health < opponent.current_health:
               print(f"{opponent.name} won!")
+              opponent.add_kill(1)
+              self.add_death(1)
               break
       else:
         if self.current_health <=0 and opponent.current_health <= 0:
@@ -63,6 +61,11 @@ class Hero:
           print(f"{opponent.name} has 0 health and cannot fight.")
     else:
       print("Draw")
+    # TODO: Refactor this method to update the following:
+    # 1) the number of kills the hero (self) has when the opponent dies.
+    # 2) then number of kills the opponent has when the hero (self) dies
+    # 3) the number of deaths of the opponent if they die    in the fight
+    # 4) the number of deaths of the hero (self) if they die in the fight
        
   def add_ability(self, ability):
     ''' Add ability to abilities list 
@@ -132,6 +135,15 @@ class Hero:
     # This means that self.abilities will be a list of
     # abilities and weapons.
     self.abilities.append(weapon)
+  
+  def add_kill(self, num_kills):
+    ''' Update self.kills by num_kills amount'''
+    self.kills += num_kills
+  
+  def add_death(self, num_deaths):
+    ''' Update deaths with num_deaths'''
+    # TODO: This method should add the number of deaths to self.deaths
+    self.kills += num_deaths
 
 if __name__ == "__main__":
     # If you run this file from the terminal
