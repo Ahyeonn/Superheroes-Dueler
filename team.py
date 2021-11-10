@@ -27,7 +27,7 @@ class Team:
         '''Prints out all heroes to the console.'''
         # TODO: Loop over the list of heroes and print their names to the terminal one by one.
         for hero in self.heroes:
-            print(f"{hero.name}")
+            print(hero.name)
 
     def add_hero(self, hero):
         '''Add Hero object to self.heroes.'''
@@ -38,6 +38,8 @@ class Team:
     def stats(self):
         '''Print team statistics'''
         for hero in self.heroes:
+            if hero.deaths == 0:
+                hero.deaths = 1
             kd = hero.kills / hero.deaths
             print(f"{hero.name} Kill/Deaths:{kd}")
     
@@ -46,7 +48,7 @@ class Team:
         # TODO: for each hero in self.heroes,
         # set the hero's current_health to their starting_health
         for hero in self.heroes:
-            hero.current_health == hero.starting_health
+            hero.current_health = hero.starting_health
 
     def attack(self, other_team):
         ''' Battle each team against each other.'''
