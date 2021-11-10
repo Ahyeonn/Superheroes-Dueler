@@ -17,36 +17,24 @@ class Hero:
     if len(self.abilities) > 0 or len(opponent.abilities) > 0:
       while True:
         if self.is_alive():
-          opponent.current_health -= self.attack()
-          break
+          attack_damage = self.attack()
+          opponent.take_damage(attack_damage)
         else:
-          print(f"{opponent.name} won!")
+          print(f"\n{opponent.name} won!")
           print(f"{self.name} lost!")
           self.add_death(1)
           opponent.add_kill(1)
           break
 
-        # if opponent.is_alive():
-        #   self.current_health -= opponent.attack()
-        # else:
-        #   print(f"{self.name} won!")
-        #   print(f"{opponent.name} lost!")
-        #   opponent.add_death(1)
-        #   self.add_kill(1)
-        #   break
-
-
-      # if self.is_alive():
-      #   print(f"{self.name} won!")
-      #   print(f"{opponent.name} lost!")
-      #   opponent.add_death(1)
-      #   self.add_kill(1)
-
-      # elif opponent.is_alive(): 
-      #   print(f"{opponent.name} won!")
-      #   print(f"{self.name} lost!")
-      #   self.add_death(1)
-      #   opponent.add_kill(1)
+        if opponent.is_alive():
+          attack_damage = opponent.attack()
+          self.take_damage(attack_damage)
+        else:
+          print(f"\n{self.name} won!")
+          print(f"{opponent.name} lost!")
+          opponent.add_death(1)
+          self.add_kill(1)
+          break
         
     else:
       print("Draw")
@@ -77,10 +65,7 @@ class Hero:
     self.current_health -= damage
   
   def is_alive(self):  
-    if self.current_health > 0:
-      return True
-    else:
-      return False
+    return self.current_health > 0
   
   def add_kill(self, num_kills):
     self.kills += num_kills
