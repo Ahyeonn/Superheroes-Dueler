@@ -31,39 +31,36 @@ class Hero:
   def fight(self, opponent):
     ''' Current Hero will take turns fighting the opponent hero passed in.
     '''
-     total_power = self.current_health + opponent.current_health
-
-        if self.abilities == [] and opponent.abilities == []:
-            print('DRAW')
-            return
-
-        #run the fighting while both heros are still alive
-        while self.is_alive() == True and opponent.is_alive() == True:
-            print('fighting')
-            self.take_damage(opponent.attack())
-            #print(f'slf: {self.current_health}')
-            opponent.take_damage(self.attack())
-            #print(f'opp: {opponent.current_health}')
-
-        #print the results if both players die at the same time
-        if self.current_health <= 0 and opponent.current_health <= 0:
-            print('DRAW')
-            self.add_kill(1)
-            opponent.add_kill(1)
-            self.add_death(1)
-            opponent.add_death(1)
-
-        #if SELF is the winner
-        elif self.current_health > opponent.current_health:
-            print(f'{self.name} defeats {opponent.name}.')
-            self.add_kill(1)
-            opponent.add_death(1)
-
-        #if OPPONENT is the winner
-        else:
-            print(f'{opponent.name} defeats {self.name}.')
-            opponent.add_kill(1)
-            self.add_death(1)
+    if len(self.abilities) > 0 or len(opponent.abilities) > 0:
+      if self.current_health > 0 and opponent.current_health > 0:
+        while True:
+          if self.current_health > 0:
+            opponent.current_health -= self.attack()
+            opponent.is_alive()
+            if opponent.current_health > 0:
+              self.current_health -= opponent.attack()
+              self.is_alive()
+            else:
+              if opponent.current_health <=0 and opponent.current_health < self.current_health:
+                print(f"{self.name} won!")
+                opponent.add_death(1)
+                self.add_kill(1)
+                break
+          else:
+            if self.current_health <= 0 and self.current_health < opponent.current_health:
+              print(f"{opponent.name} won!")
+              opponent.add_kill(1)
+              self.add_death(1)
+              break
+      else:
+        if self.current_health <=0 and opponent.current_health <= 0:
+          print(f"{self.name} and {opponent.name} both have 0 health and cannot fight.")
+        elif self.current_health <= 0:
+          print(f"{self.name} has 0 health and cannot fight.")
+        elif opponent.current_health <= 0:
+          print(f"{opponent.name} has 0 health and cannot fight.")
+    else:
+      print("Draw")
     # TODO: Refactor this method to update the following:
     # 1) the number of kills the hero (self) has when the opponent dies.
     # 2) then number of kills the opponent has when the hero (self) dies
